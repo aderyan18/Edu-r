@@ -19,80 +19,15 @@ import Account from '../View/Account/index.js';
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function MainScreen() {
-  return (
-    <Tab.Navigator
-      activeColor={COLOR.BLUE}
-      shifting={false}
-      initialRouteName="Home"
-      headerShown={false}
-      barStyle={{backgroundColor: '#F3F2F2'}}>
-      <Tab.Screen
-        name="Main"
-        component={Home}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <Icon
-              name="home"
-              size={hp(3)}
-              color={focused ? COLOR.PRIMARY : 'gray'}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={Search}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <Icon
-              name="inbox"
-              size={hp(3)}
-              color={focused ? COLOR.PRIMARY : 'gray'}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Library"
-        component={Library}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <Icon
-              name="book"
-              size={hp(3)}
-              color={focused ? COLOR.PRIMARY : 'gray'}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Account"
-        component={Account}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <Icon
-              name="user"
-              size={hp(3)}
-              color={focused ? COLOR.PRIMARY : 'gray'}
-            />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
-
 const NavigationRoutes = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{headerShown: false}}
         initialRouteName="SplashScreen">
-        <Stack.Screen name="Home" component={MainScreen} />
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="SplashScreen" component={splashScreen} />
         <Stack.Screen name="Login" component={Login} />
-        {/* <Stack.Screen name="Home" component={MainScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

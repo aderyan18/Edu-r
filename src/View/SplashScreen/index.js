@@ -10,24 +10,13 @@ import {StackActions} from '@react-navigation/native';
 import {COLOR} from '../../Styles/color';
 
 class SplashScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.props.navigation.dispatch(StackActions.replace('Login'));
-    }, 3000);
-  }
-
   render() {
     return (
       <View style={[styles.container]}>
-        {/* <Image
+        <Image
           style={[styles.tinyLogo]}
-          source={require('../../Assets/logo_footer.png')}
-        /> */}
+          source={require('../../Assets/26591.jpg')}
+        />
         <Text
           style={{
             fontSize: wp(5.5),
