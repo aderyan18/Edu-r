@@ -10,6 +10,16 @@ import {StackActions} from '@react-navigation/native';
 import {COLOR} from '../../Styles/color';
 
 class SplashScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.navigation.dispatch(StackActions.replace('Login'));
+    }, 2000);
+  }
   render() {
     return (
       <View style={[styles.container]}>
