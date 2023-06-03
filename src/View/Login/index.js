@@ -18,6 +18,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 
 export default function Login({navigation}) {
+  const api = 'https://stunting.fihaa-app.com/login';
   const [icon, setIcon] = useState({
     icon: 'eye',
     status: true,
@@ -43,6 +44,32 @@ export default function Login({navigation}) {
     }
   };
 
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  });
+  const HandleLogin = () => {
+    if (cekNull(data.email) || cekNull(data.password)) {
+      alert('Data Tidak Boleh Kosong');
+    }
+    fetch(api, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: data.email.toLowerCase(),
+        password: data.password.toLowerCase(),
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.message == 'Success') {
+          return navigation.navigate('Home');
+        }
+        return alert('Username atau Password Salah');
+      });
+  };
   return (
     <SafeAreaView>
       <ScrollView>
@@ -79,7 +106,7 @@ export default function Login({navigation}) {
               // backgroundColor: '#c0c0c0',
             }}>
             <TextInput
-              placeholder="Name"
+              placeholder="Email"
               underlineColor="transparent"
               theme={{colors: {primary: COLOR.BLUE}}}
               style={{
@@ -94,9 +121,9 @@ export default function Login({navigation}) {
                 backgroundColor: '#fff',
                 alignSelf: 'center',
               }}
-              left={
-                <TextInput.Icon name="account" color={COLOR.BLUE} />
-              }></TextInput>
+              left={<TextInput.Icon name="account" color={COLOR.BLUE} />}
+              onChangeText={e => setData({...data, email: e})}
+            />
             <TextInput
               placeholder="Password"
               underlineColor="transparent"
@@ -115,13 +142,8 @@ export default function Login({navigation}) {
                 alignSelf: 'center',
               }}
               left={<TextInput.Icon name="lock" color={COLOR.GREY} />}
-              right={
-                <TextInput.Icon
-                  name={icon.icon}
-                  color={COLOR.GREY}
-                  onPress={showPass}
-                />
-              }></TextInput>
+              onChangeText={e => setData({...data, password: e})}
+            />
 
             <TouchableOpacity
               style={{alignItems: 'flex-end', paddingRight: wp(4)}}>
@@ -129,9 +151,7 @@ export default function Login({navigation}) {
             </TouchableOpacity>
           </View>
           {/* TextInput End */}
-          <TouchableOpacity
-            style={[styles.ButtonMasuk]}
-            onPress={() => navigation.navigate('Home')}>
+          <TouchableOpacity style={[styles.ButtonMasuk]} onPress={HandleLogin}>
             <Text style={{fontWeight: 'bold', color: COLOR.WHITE}}>MASUK</Text>
           </TouchableOpacity>
         </View>
